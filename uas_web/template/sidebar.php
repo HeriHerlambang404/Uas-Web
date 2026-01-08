@@ -1,19 +1,24 @@
 <?php
-
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : 'user';
 $nama = isset($_SESSION['nama']) ? $_SESSION['nama'] : 'Guest';
 ?>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-<aside class="bg-light border-end" style="width: 250px; min-height: 100vh; display: flex; flex-direction: column; font-family: 'Plus Jakarta Sans', sans-serif;">
+<aside class="sidebar-wrapper bg-light border-end shadow-sm" id="sidebarMenu">
     <div class="p-4 flex-grow-1">
-        <div class="mb-4 text-center">
-            <h5 class="fw-bold text-dark m-0">Arthickellll</h5>
+        <div class="mb-4 text-center d-none d-md-block">
+            <h5 class="fw-bold text-dark m-0">Artikel</h5>
             <small class="text-muted text-uppercase tracking-wider" style="font-size: 10px;">Internal System</small>
         </div>
 
         <ul class="nav flex-column">
+            <div class="d-md-none mb-3 p-2 bg-white rounded border shadow-sm">
+                <small class="text-muted d-block">Login sebagai:</small>
+                <span class="fw-bold"><?= $nama; ?></span> 
+                <span class="badge <?= ($role === 'admin') ? 'bg-primary' : 'bg-success' ?> ms-1" style="font-size: 0.6rem;"><?= strtoupper($role); ?></span>
+            </div>
+
             <li class="nav-item mb-2">
                 <?php 
                     $home_path = ($role === 'admin') ? '/uas_web/home/index' : '/uas_web/home/indexuser'; 
@@ -47,7 +52,7 @@ $nama = isset($_SESSION['nama']) ? $_SESSION['nama'] : 'Guest';
                 </a>
             </li>
             
-            <li class="nav-item mt-4">
+            <li class="nav-item mt-3">
                 <hr class="text-muted opacity-25">
                 <a class="nav-link border rounded bg-white shadow-sm text-danger fw-bold d-flex align-items-center py-2 px-3" 
                    href="/uas_web/user/logout" 
@@ -59,10 +64,10 @@ $nama = isset($_SESSION['nama']) ? $_SESSION['nama'] : 'Guest';
         </ul>
     </div>
 
-    <div class="p-3 border-top bg-white">
+    <div class="p-3 border-top bg-white d-none d-md-block">
         <div class="d-flex align-items-center bg-light p-2 rounded">
             <div class="flex-shrink-0">
-                <div class="bg-dark rounded text-white d-flex align-items-center justify-center" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">
+                <div class="bg-dark rounded text-white d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
                     <i class="bi bi-person"></i>
                 </div>
             </div>
@@ -70,17 +75,34 @@ $nama = isset($_SESSION['nama']) ? $_SESSION['nama'] : 'Guest';
                 <p class="mb-0 fw-bold text-dark text-truncate" style="font-size: 0.85rem;">
                     <?= $nama; ?>
                 </p>
-                <div class="d-flex align-items-center">
-                    <span class="badge <?= ($role === 'admin') ? 'bg-primary' : 'bg-success' ?>" style="font-size: 0.6rem;">
-                        <?= strtoupper($role); ?>
-                    </span>
-                </div>
+                <span class="badge <?= ($role === 'admin') ? 'bg-primary' : 'bg-success' ?>" style="font-size: 0.6rem;">
+                    <?= strtoupper($role); ?>
+                </span>
             </div>
         </div>
     </div>
 </aside>
 
 <style>
+    /* CSS MOBILE FIRST */
+    .sidebar-wrapper {
+        width: 100%; /* Full width di mobile */
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* CSS UNTUK DESKTOP (Layar > 768px) */
+    @media (min-width: 768px) {
+        .sidebar-wrapper {
+            width: 250px !important;
+            min-height: 100vh;
+            position: sticky;
+            top: 0;
+        }
+    }
+
     .nav-link {
         transition: all 0.3s ease;
         font-size: 0.95rem;
@@ -89,9 +111,6 @@ $nama = isset($_SESSION['nama']) ? $_SESSION['nama'] : 'Guest';
         transform: translateX(5px);
         background-color: #f8f9fa !important;
         border-color: #dee2e6 !important;
-    }
-    .nav-link i {
-        font-size: 1.1rem;
     }
     .tracking-wider {
         letter-spacing: 0.1em;
