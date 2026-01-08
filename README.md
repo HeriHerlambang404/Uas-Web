@@ -1,4 +1,4 @@
-<img width="1919" height="1078" alt="image" src="https://github.com/user-attachments/assets/80fedd2b-2acf-4667-948d-1c540974ba1c" /># Uas-Web
+# Uas-Web
 - Deskripsi
   1. Program E - Artikel (Program penyebaran/membaca artikel berbasis Website)
   - Yang dapat di akses 2 pengguna yaitu Pembaca (User) & Admin (Pengelola)
